@@ -15,11 +15,11 @@ async def check_proxy(proxy, progress_bar):
 
     try:
         if scheme in ['http', 'https']:
-            async with httpx.AsyncClient(proxies=proxy, timeout=5) as client:
+            async with httpx.AsyncClient(proxies=proxy, timeout=500) as client:
                 response = await client.get(url)
         elif scheme in ['socks4', 'socks5']:
             transport = AsyncProxyTransport.from_url(proxy)
-            async with httpx.AsyncClient(transport=transport, timeout=5) as client:
+            async with httpx.AsyncClient(transport=transport, timeout=500) as client:
                 response = await client.get(url)
         else:
             raise ValueError(f"Unknown proxy scheme: {scheme}")
